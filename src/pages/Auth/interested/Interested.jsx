@@ -23,8 +23,8 @@ const Interested = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#050C15] to-[#001938] px-6 py-20 text-primary">
-      <div className="max-w-screen-md mx-auto">
+    <section className="min-h-screen bg-linear-to-b from-[#050C15] to-[#001938] px-6 py-20 text-primary">
+      <div className="max-w-3xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-12">

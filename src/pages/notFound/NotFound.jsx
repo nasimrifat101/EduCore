@@ -3,7 +3,7 @@ import { FiAlertTriangle, FiHome } from "react-icons/fi";
 
 const NotFound = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#050C15] to-[#001938] text-primary px-6">
+    <section className="min-h-screen flex items-center justify-center bg-linear-to-b from-[#050C15] to-[#001938] text-primary px-6">
       <div className="text-center max-w-xl">
         {/* Icon */}
         <div className="flex justify-center mb-6 text-logo">
