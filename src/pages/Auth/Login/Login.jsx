@@ -1,4 +1,11 @@
-import { FiMail, FiLock, FiLogIn, FiEye, FiEyeOff, FiArrowLeft } from "react-icons/fi";
+import {
+  FiMail,
+  FiLock,
+  FiLogIn,
+  FiEye,
+  FiEyeOff,
+  FiArrowLeft,
+} from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState, useContext } from "react";
@@ -134,14 +141,14 @@ const Login = () => {
           </p>
         </div>
         <div className="flex justify-center items-center mt-6">
-                  <Link
-                    to="/"
-                    className="inline-flex items-center gap-2 text-green-200 hover:text-logo transition"
-                  >
-                    <FiArrowLeft />
-                    Back to Home
-                  </Link>
-                </div>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-green-200 hover:text-logo transition"
+          >
+            <FiArrowLeft />
+            Back to Home
+          </Link>
+        </div>
       </div>
     </section>
   );
