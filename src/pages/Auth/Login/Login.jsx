@@ -1,5 +1,5 @@
 import {
-  FiMail,
+  FiUser,
   FiLock,
   FiLogIn,
   FiEye,
@@ -14,7 +14,7 @@ import { AuthContext } from "../../../context/AuthContext/AuthContext";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // ✅ useContext here
+  const { login } = useContext(AuthContext);
 
   const {
     register,
@@ -22,14 +22,14 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const { email, password } = data;
-    const success = login(email, password); // from context
+  const onSubmit = async (data) => {
+    const { identifier, password } = data;
 
-    if (success) {
-      navigate("/dashboard"); // ✅ only here
-    } else {
-      alert("Invalid credentials!");
+    try {
+      await login(identifier, password);
+      navigate("/dashboard");
+    } catch (e) {
+      alert("Invalid credentials", e.message);
     }
   };
 
@@ -45,31 +45,33 @@ const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Email */}
+            {/* Identifier */}
             <div>
-              <label className="block text-sm mb-2">Email</label>
+              <label className="block text-sm mb-2">
+                Email / Phone / Username
+              </label>
               <div className="relative">
-                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-green-300" />
+                <FiUser className="absolute left-4 top-1/2 -translate-y-1/2 text-green-300" />
                 <input
-                  type="email"
-                  placeholder="admin@educore.com"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^\S+@\S+$/i,
-                      message: "Invalid email address",
+                  type="text"
+                  placeholder="Email / Phone / Username"
+                  {...register("identifier", {
+                    required: "Identifier is required",
+                    minLength: {
+                      value: 3,
+                      message: "Too short",
                     },
                   })}
                   className={`w-full bg-transparent border rounded-xl py-3 pl-12 pr-12 outline-none transition ${
-                    errors.email
+                    errors.identifier
                       ? "border-red-500"
                       : "border-white/10 focus:border-logo"
                   }`}
                 />
               </div>
-              {errors.email && (
+              {errors.identifier && (
                 <p className="text-red-400 text-xs mt-1">
-                  {errors.email.message}
+                  {errors.identifier.message}
                 </p>
               )}
             </div>
@@ -84,7 +86,10 @@ const Login = () => {
                   placeholder="••••••••"
                   {...register("password", {
                     required: "Password is required",
-                    minLength: { value: 4, message: "Minimum 4 characters" },
+                    minLength: {
+                      value: 4,
+                      message: "Minimum 4 characters",
+                    },
                   })}
                   className={`w-full bg-transparent border rounded-xl py-3 pl-12 pr-12 outline-none transition ${
                     errors.password
@@ -107,21 +112,6 @@ const Login = () => {
               )}
             </div>
 
-            {/* Remember / Forgot */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  {...register("remember")}
-                  className="accent-logo"
-                />
-                Remember me
-              </label>
-              <Link to="/forgot-password" className="text-logo hover:underline">
-                Forgot password?
-              </Link>
-            </div>
-
             {/* Button */}
             <button
               type="submit"
@@ -140,6 +130,7 @@ const Login = () => {
             </Link>
           </p>
         </div>
+
         <div className="flex justify-center items-center mt-6">
           <Link
             to="/"

@@ -7,16 +7,15 @@ import Home from "../pages/Home/home/Home";
 import Login from "../pages/Auth/Login/Login";
 import Interested from "../pages/Auth/interested/Interested";
 import NotFound from "../pages/notFound/NotFound";
-
+import SchoolAdminHome from "../dashboard/SchoolAdmin/AdminHome/SchoolAdminHome";
+import PrivateRoutes from "../pages/Auth/PrivateRoute/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Home /> },
-    ],
+    children: [{ index: true, element: <Home /> }],
   },
   {
     path: "/",
@@ -28,12 +27,17 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />, // wraps all dashboard pages
+    element: <PrivateRoutes />,
     children: [
-      { index: true, element: <></> },
-      { path: "students", element: <></> },
-      { path: "exams", element: <div>Exams Page</div> }, // placeholder
-      { path: "fees", element: <div>Fees Page</div> }, // placeholder
+      {
+        element: <DashboardLayout />,
+        children: [
+          { index: true, element: <SchoolAdminHome /> }, // dashboard home
+          { path: "students", element: <></> },
+          { path: "exams", element: <div>Exams Page</div> }, // placeholder
+          { path: "fees", element: <div>Fees Page</div> }, // placeholder
+        ],
+      },
     ],
   },
 ]);
